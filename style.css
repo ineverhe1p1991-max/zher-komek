@@ -1537,6 +1537,7 @@ strong {
 
     .hero {
         padding-top: var(--space-24);
+        padding-bottom: var(--space-20);
     }
 
     .hero__title {
@@ -1658,6 +1659,40 @@ strong {
 
     .expertise__metrics {
         grid-template-columns: 1fr;
+    }
+
+    .expertise__metric {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        row-gap: var(--space-1);
+        align-items: center;
+        text-align: left;
+        padding: var(--space-6);
+    }
+
+    .expertise__metric-icon {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        margin-bottom: 0;
+        margin-left: var(--space-4);
+    }
+
+    .expertise__metric-icon svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .expertise__metric-value {
+        grid-column: 1;
+        grid-row: 1;
+        font-size: var(--text-2xl);
+    }
+
+    .expertise__metric-label {
+        grid-column: 1;
+        grid-row: 2;
+        font-size: var(--text-base);
     }
 
     .faq__question {
@@ -1787,6 +1822,10 @@ strong {
     width: 100%;
     height: 100%;
     border: 0;
+}
+
+.cases {
+    padding-top: var(--space-12);
 }
 
 /* Cases Grid (WhatsApp & Docs) */
