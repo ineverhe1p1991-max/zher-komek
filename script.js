@@ -159,6 +159,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Hero contact form handler
+    const heroForm = document.getElementById('hero-lead-form');
+    if (heroForm) {
+        heroForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const contactInfo = document.getElementById('hero-contact-input').value.trim();
+            if (!contactInfo) return;
+            
+            const submitBtn = heroForm.querySelector('button[type="submit"]');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span>Отправлено ✓</span>';
+            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalHTML;
+                submitBtn.style.background = '';
+                submitBtn.disabled = false;
+                heroForm.reset();
+            }, 3000);
+        });
+    }
+
     // ---- Phone Input Mask ----
     const phoneInput = document.getElementById('form-phone');
     if (phoneInput) {
