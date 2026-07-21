@@ -1483,7 +1483,14 @@ strong {
 
     .expertise__layout {
         grid-template-columns: 1fr;
-        gap: var(--space-12);
+        gap: var(--space-8);
+    }
+
+    .expertise__content {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .ecosystem__grid {
@@ -1665,7 +1672,7 @@ strong {
         display: grid;
         grid-template-columns: 1fr auto;
         grid-template-rows: auto auto;
-        row-gap: var(--space-1);
+        row-gap: var(--space-2);
         align-items: center;
         text-align: left;
         padding: var(--space-6);
@@ -1679,8 +1686,8 @@ strong {
     }
 
     .expertise__metric-icon svg {
-        width: 48px;
-        height: 48px;
+        width: 56px;
+        height: 56px;
     }
 
     .expertise__metric-value {
