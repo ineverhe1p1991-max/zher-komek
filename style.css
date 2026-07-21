@@ -1539,12 +1539,36 @@ strong {
 
     .hero__stats {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
         gap: var(--space-6);
     }
 
+    .hero__stat {
+        align-items: center;
+    }
+
+    .hero__stat-number {
+        font-size: var(--text-5xl);
+        font-weight: 800;
+    }
+
+    .hero__stat-suffix {
+        font-size: var(--text-3xl);
+        font-weight: 800;
+    }
+
+    .hero__stat-label {
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        font-weight: 500;
+        max-width: 280px;
+    }
+
     .hero__stat-divider {
-        width: 60px;
+        width: 80px;
         height: 1px;
+        margin: 0 auto;
     }
 
     .hero__actions {
