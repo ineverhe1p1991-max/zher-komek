@@ -505,6 +505,12 @@ strong {
     flex-direction: column;
 }
 
+.hero__stat-value {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
 .hero__stat-number {
     font-family: var(--font-display);
     font-size: var(--text-4xl);
@@ -1541,11 +1547,20 @@ strong {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        width: 100%;
         gap: var(--space-6);
     }
 
     .hero__stat {
+        width: 100%;
         align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero__stat-value {
+        width: 100%;
+        justify-content: center;
     }
 
     .hero__stat-number {
