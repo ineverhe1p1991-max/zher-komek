@@ -169,6 +169,11 @@ strong {
     margin-bottom: var(--space-6);
 }
 
+html[lang="kk"] .section-title {
+    line-height: 1.35;
+}
+
+
 .section-desc {
     font-size: var(--text-lg);
     color: var(--color-text-secondary);
@@ -508,6 +513,10 @@ strong {
     letter-spacing: -0.02em;
     margin-bottom: var(--space-8);
     max-width: 800px;
+}
+
+html[lang="kk"] .hero__title {
+    line-height: 1.25;
 }
 
 .hero__title-accent {
