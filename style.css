@@ -558,6 +558,12 @@ strong {
     animation: scrollLine 1.5s ease-in-out infinite;
 }
 
+@media (max-height: 900px) {
+    .hero__scroll-indicator {
+        display: none;
+    }
+}
+
 @keyframes scrollLine {
     0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
     50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
