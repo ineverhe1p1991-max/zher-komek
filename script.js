@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ---- Telegram Integration ----
-    const TELEGRAM_TOKEN = '834358405:AAEVru6ve_UKvdP2YoyXizZH1vVRoAmq9o4';
+    const TELEGRAM_TOKEN = '8834358405:AAEVru6ve_UKvdP2YoyXizZH1vVRoAmq9o4';
     const TELEGRAM_CHAT_ID = '6354119702';
 
     const sendToTelegram = async (message) => {
