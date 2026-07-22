@@ -236,9 +236,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---- Phone Input Mask ----
-    const phoneInput = document.getElementById('form-phone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', (e) => {
+    const phoneInputs = [
+        document.getElementById('form-phone'),
+        document.getElementById('hero-contact-input')
+    ];
+    
+    phoneInputs.forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', (e) => {
             let value = e.target.value.replace(/\D/g, '');
             
             if (value.startsWith('8')) {
@@ -258,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             e.target.value = formatted;
         });
-    }
+    });
 
     // ---- Smooth Scroll for Internal Links ----
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
