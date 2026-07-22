@@ -127,11 +127,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ---- Telegram Integration ----
+    const TELEGRAM_TOKEN = '834358405:AAEVru6ve_UKvdP2YoyXizZH1vVRoAmq9o4';
+    const TELEGRAM_CHAT_ID = '6354119702';
+
+    const sendToTelegram = async (message) => {
+        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            });
+            return true;
+        } catch (error) {
+            console.error('Error sending message to Telegram:', error);
+            return false;
+        }
+    };
+
     // ---- Form Handling ----
     const form = document.getElementById('consultation-form');
     
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const name = document.getElementById('form-name').value.trim();
@@ -142,43 +167,71 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Visual feedback
             const submitBtn = document.getElementById('form-submit');
             const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span>Заявка отправлена ✓</span>';
-            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+            submitBtn.innerHTML = '<span>Отправка...</span>';
             submitBtn.disabled = true;
 
-            // Reset after 3 seconds
-            setTimeout(() => {
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-                form.reset();
-            }, 3000);
+            const text = `🔥 <b>Новая заявка (Подвал)</b>\n\n👤 <b>Имя:</b> ${name}\n📞 <b>Телефон:</b> ${phone}\n📍 <b>Регион:</b> ${region}`;
+            
+            const success = await sendToTelegram(text);
+
+            if (success) {
+                submitBtn.innerHTML = '<span>Заявка отправлена ✓</span>';
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                    form.reset();
+                }, 3000);
+            } else {
+                submitBtn.innerHTML = '<span>Ошибка отправки</span>';
+                submitBtn.style.background = '#f44336';
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
         });
     }
 
     // Hero contact form handler
     const heroForm = document.getElementById('hero-lead-form');
     if (heroForm) {
-        heroForm.addEventListener('submit', (e) => {
+        heroForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const contactInfo = document.getElementById('hero-contact-input').value.trim();
             if (!contactInfo) return;
             
             const submitBtn = heroForm.querySelector('button[type="submit"]');
             const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span>Отправлено ✓</span>';
-            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+            submitBtn.innerHTML = '<span>Отправка...</span>';
             submitBtn.disabled = true;
 
-            setTimeout(() => {
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-                heroForm.reset();
-            }, 3000);
+            const text = `🚀 <b>Новая заявка (Главный экран)</b>\n\n📞 <b>Контакт:</b> ${contactInfo}`;
+            
+            const success = await sendToTelegram(text);
+
+            if (success) {
+                submitBtn.innerHTML = '<span>Отправлено ✓</span>';
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #388E3C)';
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                    heroForm.reset();
+                }, 3000);
+            } else {
+                submitBtn.innerHTML = '<span>Ошибка</span>';
+                submitBtn.style.background = '#f44336';
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
         });
     }
 
