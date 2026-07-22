@@ -1921,6 +1921,7 @@ html[lang="kk"] .hero__title {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    cursor: zoom-in;
 }
 .cases-card:hover img {
     transform: scale(1.05);
@@ -1931,6 +1932,61 @@ html[lang="kk"] .hero__title {
     color: var(--color-text-primary);
     text-align: center;
     font-weight: 500;
+}
+
+/* Lightbox for Gallery */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: var(--space-4);
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox__content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox__img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-dark);
+}
+
+.lightbox__close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.lightbox__close:hover {
+    color: var(--color-gold);
 }
 
 /* Expectation vs Reality Visualization */

@@ -233,4 +233,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
     }
+    }
+    
+    // ---- Lightbox (Image Gallery) ----
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const casesImages = document.querySelectorAll('.cases-card img');
+
+    if (lightbox && lightboxImg && casesImages.length > 0) {
+        // Open lightbox
+        casesImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            });
+        });
+
+        // Close functions
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                lightboxImg.src = '';
+            }, 300); // Wait for transition
+        };
+
+        if(lightboxClose) {
+            lightboxClose.addEventListener('click', closeLightbox);
+        }
+        
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    }
 });
