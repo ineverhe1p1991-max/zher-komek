@@ -233,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
     }
-    }
     
     // ---- Lightbox (Image Gallery) ----
     const lightbox = document.getElementById('lightbox');
