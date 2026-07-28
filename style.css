@@ -2114,3 +2114,320 @@ html[lang="kk"] .hero__title {
         margin-right: auto;
     }
 }
+
+/* ============================================================
+   COMPARE SECTION — Honest Comparison Table
+   ============================================================ */
+.compare {
+    padding: var(--space-20) 0;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.compare-intro {
+    max-width: 700px;
+    margin-bottom: var(--space-12);
+}
+
+.compare table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.compare th,
+.compare td {
+    text-align: left;
+    padding: var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+    font-size: var(--text-base);
+    line-height: 1.5;
+}
+
+.compare thead th {
+    color: var(--color-text-tertiary);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.compare tbody td:last-child {
+    color: var(--color-gold);
+    font-weight: 600;
+}
+
+.compare tbody th {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.compare-note {
+    margin-top: var(--space-8);
+    color: var(--color-text-tertiary);
+    max-width: 760px;
+    font-size: var(--text-sm);
+    line-height: 1.7;
+}
+
+/* ============================================================
+   CALCULATOR SECTION — Land Value Calculator
+   ============================================================ */
+.calculator {
+    padding: var(--space-20) 0;
+    background: var(--color-bg-primary);
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 70px;
+    align-items: start;
+    margin-top: var(--space-8);
+}
+
+.calc-grid label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-tertiary);
+    margin: var(--space-6) 0 var(--space-2);
+}
+
+.calc-grid select {
+    width: 100%;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: border-color var(--duration-fast);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B9590' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+.calc-grid select:focus {
+    border-color: var(--color-gold);
+    outline: none;
+}
+
+.segmented {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.segmented button {
+    min-height: 65px;
+    border: 0;
+    border-right: 1px solid var(--color-border);
+    background: var(--color-bg-card);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition: all var(--duration-fast);
+    line-height: 1.3;
+}
+
+.segmented button:last-child {
+    border-right: 0;
+}
+
+.segmented button:hover {
+    background: var(--color-bg-card-hover);
+}
+
+.segmented button.active {
+    background: var(--color-gold);
+    color: var(--color-text-inverse);
+    font-weight: 700;
+}
+
+.segmented button small {
+    display: block;
+    font-size: var(--text-xs);
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+.range-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-2);
+}
+
+.range-head span {
+    color: var(--color-text-tertiary);
+    font-size: var(--text-sm);
+}
+
+.range-value {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.calc-grid input[type="range"] {
+    width: 100%;
+    margin-top: var(--space-2);
+    accent-color: var(--color-gold);
+    height: 6px;
+    cursor: pointer;
+}
+
+.calc-result {
+    border-top: 3px solid var(--color-gold);
+    padding-top: var(--space-6);
+}
+
+.result-label {
+    color: var(--color-text-tertiary);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+.calc-big {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--color-text-primary);
+    line-height: 1.1;
+    margin: var(--space-2) 0;
+}
+
+.calc-bar {
+    height: 34px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    margin: var(--space-6) 0 var(--space-2);
+    position: relative;
+    overflow: hidden;
+}
+
+.calc-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold));
+    width: 2%;
+    transition: width 0.3s ease;
+    border-radius: var(--radius-sm);
+}
+
+.calc-bar-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}
+
+.calc-rows {
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-base);
+}
+
+.calc-row span {
+    color: var(--color-text-secondary);
+}
+
+.calc-row strong {
+    white-space: nowrap;
+    color: var(--color-text-primary);
+}
+
+.calc-profit {
+    background: var(--color-gold-subtle);
+    border: 1px solid var(--color-border-gold);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin-top: var(--space-6);
+    display: flex;
+    gap: var(--space-6);
+    align-items: center;
+}
+
+.calc-mult {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    white-space: nowrap;
+}
+
+.calc-profit p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.calc-profit strong {
+    color: var(--color-text-primary);
+}
+
+.calc-manual {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+}
+
+.calc-manual h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+}
+
+/* Calculator responsive */
+@media (max-width: 900px) {
+    .calc-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-10);
+    }
+}
+
+@media (max-width: 620px) {
+    .compare table {
+        font-size: var(--text-sm);
+    }
+    .compare th,
+    .compare td {
+        padding: var(--space-3) var(--space-2);
+    }
+    .compare tbody th:first-child {
+        display: none;
+    }
+    .compare thead th:first-child {
+        display: none;
+    }
+    .calc-profit {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

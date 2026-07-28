@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
     <!-- ============================================================ -->
@@ -316,6 +316,164 @@
                         <span>Консультация алу</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК: АДАЛ САЛЫСТЫРУ -->
+    <!-- ============================================================ -->
+    <section class="compare" id="compare">
+        <div class="container">
+            <div class="compare-intro">
+                <span class="section-label animate-on-scroll">Адал салыстыру</span>
+                <h2 class="section-title animate-on-scroll">
+                    Иә, өтінішті өзіңіз бере аласыз.<br>
+                    <span class="text-accent">Тегін және 20 минутта.</span>
+                </h2>
+                <p class="section-desc animate-on-scroll">
+                    Айырмашылық өтінішті беруде емес, одан кейін не болатынында.
+                </p>
+            </div>
+
+            <table class="animate-on-scroll">
+                <thead>
+                    <tr>
+                        <th>Параметр</th>
+                        <th>eGov арқылы өзіңіз</th>
+                        <th>Zher-Kömek-пен</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Құны</th>
+                        <td>Тегін</td>
+                        <td>100 000 ₸ кезеңдермен</td>
+                    </tr>
+                    <tr>
+                        <th>Учаске іздеу</th>
+                        <td>Жалпы кезек, бос жер болмауы мүмкін</td>
+                        <td>Нақты жарамды учаскені іздейміз</td>
+                    </tr>
+                    <tr>
+                        <th>Тексеру</th>
+                        <td>Қызыл сызықтар мен шектеулер көбінесе белгісіз</td>
+                        <td>Беру алдында ауыртпалықтарды тексереміз</td>
+                    </tr>
+                    <tr>
+                        <th>Құжаттар</th>
+                        <td>Гео-сызбаны өзіңіз дайындайсыз</td>
+                        <td>Сызба мен құжаттар топтамасын дайындаймыз</td>
+                    </tr>
+                    <tr>
+                        <th>Бас тарту</th>
+                        <td>Өзіңіз түсініп, қайта бересіз</td>
+                        <td>Бас тартуды талдап, әрі қарай әрекет жасаймыз</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="compare-note animate-on-scroll">
+                Егер сіздің ауданда дайын алаңдар мен қысқа кезек болса, біз адал айтамыз — eGov арқылы өзіңіз бергеніңіз тиімдірек.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК: ПАЙДА КАЛЬКУЛЯТОРЫ -->
+    <!-- ============================================================ -->
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <span class="section-label animate-on-scroll">Пайда калькуляторы</span>
+            <h2 class="section-title animate-on-scroll">
+                Тегін алуға болатын учаске<br>
+                <span class="text-accent">нарықта қанша тұрады?</span>
+            </h2>
+            <p class="section-desc animate-on-scroll">
+                Есеп шамамен. Ол пайданың көлемін көрсетеді, мәміле үшін нақты бағаны емес.
+            </p>
+
+            <div class="calc-grid animate-on-scroll">
+                <div>
+                    <label for="calcRegion">Аймақ</label>
+                    <select id="calcRegion">
+                        <option value="almaty">Алматы облысы</option>
+                        <option value="astana">Астана / Ақмола</option>
+                        <option value="shymkent">Шымкент / Түркістан</option>
+                        <option value="karaganda">Қарағанды облысы</option>
+                        <option value="kostanay">Қостанай облысы</option>
+                        <option value="pavlodar">Павлодар облысы</option>
+                        <option value="vko">Шығыс Қазақстан</option>
+                        <option value="zko">Батыс Қазақстан</option>
+                        <option value="sko">Солтүстік Қазақстан</option>
+                        <option value="zhambyl">Жамбыл облысы</option>
+                        <option value="kyzylorda">Қызылорда облысы</option>
+                        <option value="mangistau">Маңғыстау облысы</option>
+                        <option value="aktobe">Ақтөбе облысы</option>
+                        <option value="atyrau">Атырау облысы</option>
+                        <option value="other">Басқа аймақ</option>
+                    </select>
+
+                    <label>Мақсаты</label>
+                    <div class="segmented" id="purpose">
+                        <button class="active" data-type="izhs">ТҚС<br><small>10 сотық</small></button>
+                        <button data-type="lph">ЖҚШ<br><small>25 сотық</small></button>
+                        <button data-type="garden">Бақша<br><small>12 сотық</small></button>
+                    </div>
+
+                    <label for="area">Аудан</label>
+                    <div class="range-head">
+                        <span>3 сотық</span>
+                        <strong class="range-value"><span id="areaValue">10</span> сотық</strong>
+                    </div>
+                    <input id="area" type="range" min="3" max="10" value="10">
+                </div>
+
+                <div class="calc-result" id="calcResult">
+                    <p class="result-label">Шамамен нарықтық құны</p>
+                    <div class="calc-big"><span id="market">8 500 000</span> ₸</div>
+                    <p class="section-desc" id="priceText" style="margin-top:0">850 000 ₸ бір сотыққа</p>
+
+                    <div class="calc-bar">
+                        <span id="bar"></span>
+                    </div>
+                    <p class="calc-bar-label">Алтын: сүйемелдеу 100 000 ₸</p>
+
+                    <div class="calc-rows">
+                        <div class="calc-row">
+                            <span>Мемлекеттен жер</span>
+                            <strong>0 ₸</strong>
+                        </div>
+                        <div class="calc-row">
+                            <span>Сүйемелдеу</span>
+                            <strong>100 000 ₸</strong>
+                        </div>
+                        <div class="calc-row">
+                            <span>Таза пайда</span>
+                            <strong id="profit">8 400 000 ₸</strong>
+                        </div>
+                    </div>
+
+                    <div class="calc-profit">
+                        <div class="calc-mult" id="mult">×85</div>
+                        <p>
+                            Салынған әрбір теңге шамамен
+                            <strong id="multText">85 теңге активке</strong> айналады.
+                        </p>
+                    </div>
+
+                    <br>
+                    <a class="btn btn--primary" id="calcWhatsapp" href="https://wa.me/77778006286?text=%D0%A1%D3%99%D0%BB%D0%B5%D0%BC%D0%B5%D1%82%D1%81%D1%96%D0%B7%20%D0%B1%D0%B5!%20%D0%9A%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%B1%D0%BE%D0%B9%D1%8B%D0%BD%D1%88%D0%B0%20%D0%B0%D1%83%D0%B4%D0%B0%D0%BD%D1%8B%D0%BC%D0%B4%D1%8B%20%D1%82%D0%B5%D0%BA%D1%81%D0%B5%D1%80%D0%B3%D1%96%D0%BC%20%D0%BA%D0%B5%D0%BB%D0%B5%D0%B4%D1%96." target="_blank">
+                        Менің ауданымды тексеру
+                    </a>
+                </div>
+
+                <div class="calc-manual" id="manual" style="display:none">
+                    <h3>Аймақты қолмен есептейміз</h3>
+                    <p class="section-desc">
+                        Баға ауданға, коммуникацияларға және аймақтық жоспарлауға байланысты. Маман кадастрлық картаны тексеру үшін өтінім қалдырыңыз.
+                    </p>
                 </div>
             </div>
         </div>
@@ -652,6 +810,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>

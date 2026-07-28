@@ -333,4 +333,87 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ---- CALCULATOR LOGIC ----
+    const CALC_REGIONS = {
+        almaty:850000, astana:620000, shymkent:410000,
+        karaganda:260000, kostanay:175000, pavlodar:205000,
+        vko:225000, zko:235000, sko:150000, zhambyl:245000,
+        kyzylorda:185000, mangistau:520000, aktobe:290000,
+        atyrau:460000
+    };
+    const CALC_PURPOSE = {
+        izhs:{max:10, factor:1},
+        lph:{max:25, factor:.42},
+        garden:{max:12, factor:.68}
+    };
+    const CALC_SERVICE = 100000;
+    const calcMoney = n => new Intl.NumberFormat('ru-RU').format(Math.round(n));
+
+    let calcType = 'izhs';
+    const calcRegionInput = document.querySelector('#calcRegion');
+    const calcAreaInput = document.querySelector('#area');
+    const calcAreaValue = document.querySelector('#areaValue');
+    const calcPurpose = document.querySelector('#purpose');
+
+    if (calcRegionInput && calcAreaInput && calcPurpose) {
+        calcPurpose.addEventListener('click', e => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            calcType = btn.dataset.type;
+            document.querySelectorAll('#purpose button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            calcAreaInput.max = CALC_PURPOSE[calcType].max;
+            calcAreaInput.value = CALC_PURPOSE[calcType].max;
+            calcUpdate();
+        });
+
+        calcRegionInput.addEventListener('change', calcUpdate);
+        calcAreaInput.addEventListener('input', calcUpdate);
+
+        function calcUpdate() {
+            const region = calcRegionInput.value;
+            const resultEl = document.querySelector('#calcResult');
+            const manualEl = document.querySelector('#manual');
+
+            if (region === 'other') {
+                if (resultEl) resultEl.style.display = 'none';
+                if (manualEl) manualEl.style.display = 'block';
+                return;
+            }
+
+            if (resultEl) resultEl.style.display = 'block';
+            if (manualEl) manualEl.style.display = 'none';
+
+            const area = Number(calcAreaInput.value);
+            const perSot = Math.round(CALC_REGIONS[region] * CALC_PURPOSE[calcType].factor);
+            const market = perSot * area;
+            const profit = market - CALC_SERVICE;
+            const multiplier = Math.max(1, Math.round(market / CALC_SERVICE));
+
+            if (calcAreaValue) calcAreaValue.textContent = area;
+            const marketEl = document.querySelector('#market');
+            if (marketEl) marketEl.textContent = calcMoney(market);
+            const priceTextEl = document.querySelector('#priceText');
+            if (priceTextEl) priceTextEl.textContent = calcMoney(perSot) + ' ₸ за сотку';
+            const profitEl = document.querySelector('#profit');
+            if (profitEl) profitEl.textContent = calcMoney(profit) + ' ₸';
+            const multEl = document.querySelector('#mult');
+            if (multEl) multEl.textContent = '×' + multiplier;
+            const multTextEl = document.querySelector('#multText');
+            if (multTextEl) multTextEl.textContent = multiplier + ' тенге актива';
+
+            const percent = Math.max(.8, Math.min(100, CALC_SERVICE / market * 100));
+            const barEl = document.querySelector('#bar');
+            if (barEl) barEl.style.width = percent + '%';
+
+            const calcWhatsapp = document.querySelector('#calcWhatsapp');
+            if (calcWhatsapp) {
+                calcWhatsapp.href = 'https://wa.me/77778006286?text=' +
+                    encodeURIComponent('Здравствуйте! Хочу проверить район по калькулятору.');
+            }
+        }
+
+        calcUpdate();
+    }
 });
