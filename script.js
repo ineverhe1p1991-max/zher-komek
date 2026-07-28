@@ -5,7 +5,7 @@
 
 const CONFIG = {
     WHATSAPP_URL: 'https://wa.me/77778006286',
-    FORM_ENDPOINT: '' // Set backend endpoint URL when deployed (e.g., https://api.zherkomek.com/api/leads)
+    FORM_ENDPOINT: 'https://zherkomek-api.ineverhe1p1991.workers.dev/api/leads'
 };
 
 // Analytics event tracker helper
@@ -117,55 +117,37 @@ document.addEventListener('DOMContentLoaded', () => {
         window.trackEvent('quiz_start');
 
         try {
-            if (!CONFIG.FORM_ENDPOINT) {
-                // If backend endpoint is not set yet, redirect gracefully to WhatsApp with form data
-                window.trackEvent('quiz_submit', { status: 'whatsapp_fallback' });
-                
-                if (statusEl) {
-                    statusEl.className = 'form-status success';
-                    statusEl.innerHTML = '✓ Данные подгружены. Переходим в WhatsApp для бесплатной проверки района...';
-                }
+            // Формируем текст для WhatsApp
+            const msgText = `Здравствуйте! Хочу проверить свободную землю в регионе: ${formData.region || ''}, район/НП: ${formData.district || ''}, назначение: ${formData.purpose || ''}. Имя: ${formData.name || ''}, тел: ${formData.phone || ''}`;
+            const waUrl = `${CONFIG.WHATSAPP_URL}?text=${encodeURIComponent(msgText)}`;
 
-                const msgText = `Здравствуйте! Хочу проверить свободную землю в регионе: ${formData.region || ''}, район/НП: ${formData.district || ''}, назначение: ${formData.purpose || ''}. Имя: ${formData.name || ''}, тел: ${formData.phone || ''}`;
-                const waUrl = `${CONFIG.WHATSAPP_URL}?text=${encodeURIComponent(msgText)}`;
-                
-                setTimeout(() => {
-                    window.open(waUrl, '_blank');
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalBtnHTML;
-                    }
-                    if (formEl) formEl.reset();
-                }, 1200);
-
-                return true;
+            // Асинхронно отправляем на бэкенд (Telegram) — fire-and-forget, не блокируем пользователя
+            if (CONFIG.FORM_ENDPOINT) {
+                fetch(CONFIG.FORM_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                }).catch(err => console.error('Ошибка отправки на бэкенд:', err));
             }
 
-            // Real server POST request
-            const response = await fetch(CONFIG.FORM_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            // Успешный статус для пользователя и переход в WhatsApp
+            window.trackEvent('quiz_submit', { status: 'success' });
+            
+            if (statusEl) {
+                statusEl.className = 'form-status success';
+                statusEl.innerHTML = '✓ Данные приняты! Автоматически переходим в WhatsApp для ответа...';
+            }
 
-            const result = await response.json().catch(() => null);
-
-            if (response.ok && result && result.ok) {
-                window.trackEvent('quiz_submit', { status: 'success' });
-                if (statusEl) {
-                    statusEl.className = 'form-status success';
-                    statusEl.textContent = result.message || '✓ Заявка успешно принята! Мы свяжемся с вами в WhatsApp.';
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Заявка отправлена ✓</span>';
                 }
                 if (formEl) formEl.reset();
-                if (submitBtn) {
-                    submitBtn.innerHTML = '<span>Заявка принята ✓</span>';
-                }
-                return true;
-            } else {
-                throw new Error(result && result.message ? result.message : 'Ошибка отправки заявки на сервер');
-            }
+            }, 1200);
+
+            return true;
 
         } catch (err) {
             console.error('Submission error:', err);
@@ -173,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (statusEl) {
                 statusEl.className = 'form-status error';
-                statusEl.textContent = `Ошибка: ${err.message}. Попробуйте написать напрямую в WhatsApp.`;
+                statusEl.textContent = `Произошла ошибка. Пожалуйста, напишите нам напрямую в WhatsApp.`;
             }
             if (submitBtn) {
                 submitBtn.disabled = false;
@@ -312,26 +294,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- CALCULATOR DATA & LOGIC ----
     const REGIONS_DATA = {
-        almaty: { name: "Алматы", price10: 90000000, range: "3 500 000–90 000 000 ₸", sourceNote: "город и пригород сильно отличаются" },
-        astana: { name: "Астана", price10: 47000000, range: "2 000 000–48 000 000 ₸", sourceNote: "город и пригород сильно отличаются" },
-        aktau: { name: "Актау", price10: 25000000, range: "1 500 000–25 000 000 ₸", sourceNote: "зависит от удалённости от моря и города" },
-        shymkent: { name: "Шымкент", price10: 26000000, range: "2 000 000–27 000 000 ₸", sourceNote: "город и пригород сильно отличаются" },
-        karaganda: { name: "Караганда", price10: 28000000, range: "1 500 000–28 000 000 ₸", sourceNote: "коммуникации сильно влияют на цену" },
-        uralsk: { name: "Уральск", price10: 35000000, range: "1 500 000–35 000 000 ₸", sourceNote: "город и загородные участки отличаются" },
-        taraz: { name: "Тараз", price10: 19000000, range: "2 500 000–20 000 000 ₸", sourceNote: "пригород дешевле" },
-        atyrau: { name: "Атырау", price10: 16500000, range: "800 000–16 500 000 ₸", sourceNote: "пригород дешевле" },
-        pavlodar: { name: "Павлодар", price10: 15000000, range: "1 000 000–15 000 000 ₸", sourceNote: "город и пригород отличаются" },
-        kostanay: { name: "Костанай", price10: 22000000, range: "ориентир около 22 000 000 ₸", sourceNote: "цена зависит от расположения и коммуникаций" },
-        kokshetau: { name: "Кокшетау", price10: 15000000, range: "2 500 000–15 000 000 ₸", sourceNote: "пригород дешевле" },
-        aktobe: { name: "Актобе", price10: 13000000, range: "400 000–13 000 000 ₸", sourceNote: "город и пригород отличаются" },
-        kyzylorda: { name: "Кызылорда", price10: 12500000, range: "400 000–13 000 000 ₸", sourceNote: "пригород дешевле" },
-        taldykorgan: { name: "Талдыкорган", price10: 13500000, range: "1 000 000–15 000 000 ₸", sourceNote: "город и пригород отличаются" },
-        semey: { name: "Семей", price10: 13000000, range: "800 000–13 000 000 ₸", sourceNote: "загородные варианты дешевле" },
-        petropavlovsk: { name: "Петропавловск", price10: 9000000, range: "600 000–9 000 000 ₸", sourceNote: "город и загородные участки отличаются" },
-        ust_kamenogorsk: { name: "Усть-Каменогорск", price10: 11000000, range: "450 000–11 000 000 ₸", sourceNote: "загородные варианты дешевле" },
-        konaev: { name: "Конаев", price10: 18000000, range: "1 500 000–18 000 000 ₸", sourceNote: "город и пригород отличаются" },
-        turkistan: { name: "Туркестан", price10: 14500000, range: "2 500 000–15 000 000 ₸", sourceNote: "пригород дешевле" },
-        zhezkazgan: { name: "Жезказган", price10: 12600000, range: "ориентир около 12 600 000 ₸", sourceNote: "цена зависит от района" }
+        almaty: { name: "Алматы", price10: 18000000, range: "1 500 000–18 000 000 ₸", sourceNote: "город и пригород сильно отличаются" },
+        astana: { name: "Астана", price10: 10000000, range: "1 000 000–10 000 000 ₸", sourceNote: "город и пригород сильно отличаются" },
+        aktau: { name: "Актау", price10: 5000000, range: "500 000–5 000 000 ₸", sourceNote: "зависит от удалённости от моря и города" },
+        shymkent: { name: "Шымкент", price10: 5500000, range: "800 000–5 500 000 ₸", sourceNote: "город и пригород сильно отличаются" },
+        karaganda: { name: "Караганда", price10: 6000000, range: "600 000–6 000 000 ₸", sourceNote: "коммуникации сильно влияют на цену" },
+        uralsk: { name: "Уральск", price10: 7000000, range: "800 000–7 000 000 ₸", sourceNote: "город и загородные участки отличаются" },
+        taraz: { name: "Тараз", price10: 3800000, range: "600 000–3 800 000 ₸", sourceNote: "пригород дешевле" },
+        atyrau: { name: "Атырау", price10: 3500000, range: "500 000–3 500 000 ₸", sourceNote: "пригород дешевле" },
+        pavlodar: { name: "Павлодар", price10: 3200000, range: "500 000–3 200 000 ₸", sourceNote: "город и пригород отличаются" },
+        kostanay: { name: "Костанай", price10: 4500000, range: "ориентир около 4 500 000 ₸", sourceNote: "цена зависит от расположения и коммуникаций" },
+        kokshetau: { name: "Кокшетау", price10: 3200000, range: "600 000–3 200 000 ₸", sourceNote: "пригород дешевле" },
+        aktobe: { name: "Актобе", price10: 2800000, range: "400 000–2 800 000 ₸", sourceNote: "город и пригород отличаются" },
+        kyzylorda: { name: "Кызылорда", price10: 2500000, range: "400 000–2 500 000 ₸", sourceNote: "пригород дешевле" },
+        taldykorgan: { name: "Талдыкорган", price10: 2800000, range: "500 000–2 800 000 ₸", sourceNote: "город и пригород отличаются" },
+        semey: { name: "Семей", price10: 2600000, range: "400 000–2 600 000 ₸", sourceNote: "загородные варианты дешевле" },
+        petropavlovsk: { name: "Петропавловск", price10: 2000000, range: "300 000–2 000 000 ₸", sourceNote: "город и загородные участки отличаются" },
+        ust_kamenogorsk: { name: "Усть-Каменогорск", price10: 2500000, range: "400 000–2 500 000 ₸", sourceNote: "загородные варианты дешевле" },
+        konaev: { name: "Конаев", price10: 3800000, range: "600 000–3 800 000 ₸", sourceNote: "город и пригород отличаются" },
+        turkistan: { name: "Туркестан", price10: 3000000, range: "600 000–3 000 000 ₸", sourceNote: "пригород дешевле" },
+        zhezkazgan: { name: "Жезказган", price10: 2600000, range: "ориентир около 2 600 000 ₸", sourceNote: "цена зависит от района" }
     };
 
     const CALC_PURPOSE = {
