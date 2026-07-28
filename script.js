@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const CALC_SERVICE = 100000;
     const calcMoney = n => new Intl.NumberFormat('ru-RU').format(Math.round(n));
 
-    let calcType = 'lph';
+    let calcType = 'izhs';
     const calcRegionInput = document.querySelector('#calcRegion');
     const calcAreaInput = document.querySelector('#area');
     const calcAreaValue = document.querySelector('#areaValue');
