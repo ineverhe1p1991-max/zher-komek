@@ -132,6 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Успешный статус для пользователя и переход в WhatsApp
             window.trackEvent('quiz_submit', { status: 'success' });
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead');
+            }
             
             if (statusEl) {
                 statusEl.className = 'form-status success';
